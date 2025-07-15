@@ -1,8 +1,7 @@
-/*************---------------
-  PROCEDURAL TIC TAC TOE GAME
-----------------*************/
-let currentPlayer = 'X'
-let board = ['', '', '', '', '', '', '', '', '']
+let currentPlayer = 'X' // Declare variable to track current player (it starts with player X)
+let board = ['', '', '', '', '', '', '', '', ''] // Represents the 3x3 grid
+
+// An array of all the winning combinations of tic-tac-toe (will use for comparison later)
 const winningCombos = [
   [0, 1, 2], // top row
   [3, 4, 5], // middle row
@@ -14,19 +13,22 @@ const winningCombos = [
   [2, 4, 6]  // diagonal top-right to bottom-left
 ];
 
+// Add a click event listener to each button
 document.querySelectorAll('button').forEach(button => {
   button.addEventListener('click', handleClick)
 })
 
 function handleClick(event) {
-  const index = event.target.id
+  const index = event.target.id // Use the button's ID to map to board index
 
-  // Prevent clicking the same cell twice
+  // Prevent overwriting a cell
   if (board[index] !== '') return
 
-  board[index] = currentPlayer
+  // Set the current player's move in board and the DOM
+  board[index] = currentPlayer 
   event.target.textContent = currentPlayer
 
+  // Check for win condition
   if (checkWin()) {
     setTimeout(() => {
       alert(`${currentPlayer} wins!`)
@@ -35,6 +37,7 @@ function handleClick(event) {
     return
   }
 
+  // Check for draw condition
   if (board.every(cell => cell !== '')) {
     setTimeout(() => {
       alert("It's a draw!")
@@ -47,12 +50,16 @@ function handleClick(event) {
   currentPlayer = currentPlayer === 'X' ? 'O' : 'X'
 }
 
+// Check if current player has a winning combination based on the winningCombo array
 function checkWin() {
+  // Check if there are any winning combo matches in the array of arrays (winningCombos)
   return winningCombos.some(combo => {
+    // Return true if all 3 spots in the combo are filled with the current player's symbol (X or O)
     return combo.every(index => board[index] === currentPlayer)
   })
 }
 
+// Reset the game by resetting the board, the DOM, and the current player to X
 function resetGame() {
   board = ['', '', '', '', '', '', '', '', '']
   document.querySelectorAll('button').forEach(btn => btn.textContent = '')

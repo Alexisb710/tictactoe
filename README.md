@@ -9,6 +9,9 @@ This is a simple web-based **Tic-Tac-Toe** game built with **HTML**, **CSS**, an
 - Two-player mode (X vs O)  
 - Detects wins and draws  
 - Automatically resets after each game   
+- Keeps track of the score for both players and number of draws  
+- Option to reset the scoreboard  
+- Procedural and Object-Oriented versions included (in code) 
 
 ---
 
@@ -17,6 +20,7 @@ This is a simple web-based **Tic-Tac-Toe** game built with **HTML**, **CSS**, an
 - How to manage game state using arrays and DOM elements  
 - How to use event listeners to handle user interactions  
 - How to check winning conditions using `.some()` and `.every()`  
+- How to refactor procedural logic into a reusable class using OOP
 - Practice with arrow functions and `this` context in JavaScript  
 
 ---

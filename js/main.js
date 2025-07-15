@@ -175,3 +175,9 @@ class TicTacToe{
 
 // Create a new game instance
 const game = new TicTacToe()
+
+// Add reset button to clear the scoreboard
+document.querySelector('#reset-score').addEventListener('click', () => {
+  game.scoreboard = {X: 0, O: 0, draw: 0}
+  game.updateScoreboard()
+})

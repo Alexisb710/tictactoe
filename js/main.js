@@ -76,6 +76,16 @@ class TicTacToe{
     this.board = Array(9).fill('')
     this.currentPlayer = 'X'
 
+    // Update the DOM to show current player's turn (Defaulted to X in this case)
+    document.querySelector('#player').textContent = `Player ${this.currentPlayer}'s turn`
+
+    // Track scoreboard
+    this.scoreboard = {
+      X: 0,
+      O: 0,
+      draw: 0,
+    }
+
     // Define an array of all the winning combinations of tic-tac-toe
     this.winningCombos =  [
       [0, 1, 2], // top row
@@ -96,6 +106,7 @@ class TicTacToe{
   initBoard(){
     // Target all buttons inside the section with class of grid.
     document.querySelectorAll('.grid button').forEach((button, index) => {
+      // Add event listener to each button to run the makeMove method when clicked
       button.addEventListener('click', () => this.makeMove(button, index))
     })
   }
@@ -111,12 +122,16 @@ class TicTacToe{
 
     // Check for won
     if(this.checkWin()){
+      this.scoreboard[this.currentPlayer]++
+      this.updateScoreboard()
       setTimeout(() => {
         alert(`${this.currentPlayer} wins!`)
         this.resetGame()
       }, 100)
       return
     } else if(this.board.every(cell => cell !== '')){ // check for draw
+      this.scoreboard.draw++
+      this.updateScoreboard()
       setTimeout(() => {
         alert("It's a draw :/")
         this.resetGame()
@@ -130,6 +145,7 @@ class TicTacToe{
   // Toggle between player's X and O
   switchPlayer(){
     this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X'
+    document.querySelector('#player').textContent = `Player ${this.currentPlayer}'s turn`
   }
 
   // Check if current player has a winning combination based on the winningCombo array
@@ -146,9 +162,15 @@ class TicTacToe{
     this.board.fill('')
     this.currentPlayer = 'X'
     // Showcase that reset in the DOM
+    document.querySelector('#player').textContent = `Player ${this.currentPlayer}'s turn`
     document.querySelectorAll('.grid button').forEach(btn => btn.textContent = '')
   }
-
+  // Update scoreboard display in DOM
+  updateScoreboard(){
+    document.querySelector('#x-score').textContent = this.scoreboard.X
+    document.querySelector('#o-score').textContent = this.scoreboard.O
+    document.querySelector('#draw-score').textContent = this.scoreboard.draw
+  }
 }
 
 // Create a new game instance
